@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="WorkManagerJTA" transaction-type="JTA">
+		<jta-data-source>java:jboss/DefaultDS</jta-data-source>
+<!-- 		<jta-data-source>java:jboss/WorkManagerDS</jta-data-source> -->
+<!--     <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
+	<!-- 	<class>com.jpa.entities.Test</class>
+		<class>com.jpa.entities.MonImage</class>
+		<class>com.jpa.entities.Image</class -->
+		
+		<class>com.negafuma.gui.model.Category</class>
+		<class>com.negafuma.gui.model.Medium</class>
+		<class>com.negafuma.gui.model.Nationality</class>
+		<class>com.negafuma.gui.model.Picture</class>
+		<class>com.negafuma.gui.model.SubCategory</class>
+		<class>com.negafuma.gui.model.SubWork</class>
+		<class>com.negafuma.gui.model.Work</class>
+		
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+<!-- 		  	<property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
+		  	<property name="hibernate.hbm2ddl.auto" value="update"/>
+		  	
+<!--             <property name="javax.persistence.jdbc.password" value="admin123" /> -->
+<!--             <property name="javax.persistence.jdbc.user" value="root" /> -->
+<!--             <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc" /> -->
+<!--             <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://127.0.0.1:3306/playground" /> -->
+
+<!-- 			<property name="hibernate.connection.url" value="jdbc:mariadb://127.0.0.1:3306/playground?createDatabaseIfNotExist=true"/> -->
+<!-- <property name="hibernate.connection.url" value="jdbc:mariadb://127.0.0.1:3306/work_manager"/> -->
+			<property name="hibernate.connection.url" value="jdbc:mariadb://127.0.0.1:3306/playground"/>
+			<property name="hibernate.connection.driver_class" value="org.mariadb.jdbc"/>
+			<property name="hibernate.connection.username" value="root"/>
+			<property name="hibernate.connection.password" value="admin123"/>
+			<property name="hibernate.show_sql" value="true"/>
+			
+		</properties>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<h:outputStylesheet library="css" name="style1.css" />
+		<title>Add Info</title>
+	</h:head>
+	<h:body>
+	<f:metadata>
+		<f:viewParam name="productId" value="#{navigationBean.productId}" />
+	</f:metadata>
+		<p:layout style="min-width:600px;min-height:800px;">
+			<p:layoutUnit position="north" resizable="true" size="100" minSize="40" maxSize="200" styleClass="northBanner">
+<!-- 		        *North* -->
+<!-- 		        <p> -->
+<!-- 					You've been redirected to this bookmarkable page with button. -->
+<!-- 					ViewParameter you've passed is <strong>" -->
+<!-- 					#{navigationBean.productId}"</strong> -->
+<!-- 				</p> -->
+		    </p:layoutUnit>
+		    <p:layoutUnit position="west" resizable="true" size="200" minSize="40" maxSize="200">
+<!-- 		        *West* -->
+		        <p:button outcome="/index" value="Home"
+					icon="ui-icon-home" styleClass="navigationBtn">
+					<f:param name="productId" value="14" />
+				</p:button>
+<!-- 				<p:button outcome="pages/consultInfo" value="Consult Info" -->
+<!-- 					icon="ui-icon-triangle-1-n" styleClass="navigationBtn"> -->
+<!-- 					<f:param name="productId" value="14" /> -->
+<!-- 				</p:button> -->
+		    </p:layoutUnit>
+		    <p:layoutUnit position="center">
+<!-- 		        *Center* -->
+				<p:scrollPanel style="width:78%;height:555px">
+					<h:form id="referencesAddForm">
+						<p:growl id="growl" life="2000" />
+						<h:panelGrid columns="3" cellpadding="4">
+							<p:panel id="verticalMediumPanel" header="Ajouter des Media" toggleable="true" toggleOrientation="vertical" styleClass="panelByThird">
+        						<h:panelGrid columns="2" cellpadding="10">
+									<p:outputLabel value="TITRE :" />
+									<p:inputText value="#{mediumController.medium.mediumTitle}"/>
+								</h:panelGrid>
+							<p:commandButton id="saveMediumBtn" value="Ajouter Media" action="#{mediumController.saveMedium(mediumController.medium)}" update="growl mediaListTable" icon="ui-icon-disk"/>
+							</p:panel>
+							<p:panel id="verticalNationalityPanel" header="Ajouter des Nationalités" toggleable="true" toggleOrientation="vertical" styleClass="panelByThird">
+        						<h:panelGrid columns="2" cellpadding="10">
+									<p:outputLabel value="TITRE :" />
+									<p:inputText value="#{nationalityController.nationality.nationalityTitle}" />
+								</h:panelGrid>
+							<p:commandButton id="saveNationalityBtn" value="Ajouter Nationalité" 
+							action="#{nationalityController.saveNationality(nationalityController.nationality)}" 
+							update="growl nationalityListTable" icon="ui-icon-disk" onsucces="nationalityController.resetField()"/>
+							</p:panel>
+							<p:panel id="verticalCategoryPanel" header="Ajouter des Categories" toggleable="true" toggleOrientation="vertical" styleClass="panelByThird">
+        						<h:panelGrid columns="2" cellpadding="10">
+									<p:outputLabel value="TITRE :" />
+									<p:inputText value="#{categoryController.category.categoryTitle}"/>
+								</h:panelGrid>
+							<p:commandButton id="saveCategoryBtn" value="Ajouter Categorie" 
+							action="#{categoryController.saveCategory(categoryController.category)}" 
+							update="growl categoryListTable" icon="ui-icon-disk"/>
+							</p:panel>
+<!-- 							table  -->
+							<p:dataTable var="medium" value="#{mediumController.mediumList1}" id="mediaListTable" styleClass="tableByThird">
+								<p:column headerText="Media">
+							        <h:outputText value="#{medium.mediumTitle}" />
+							    </p:column>
+							</p:dataTable>
+							<p:dataTable var="nationality" value="#{nationalityController.nationalityList1}" id="nationalityListTable" styleClass="tableByThird">
+								<p:column headerText="Nationalité">
+							        <h:outputText value="#{nationality.nationalityTitle}" />
+							    </p:column>							
+							</p:dataTable>
+							<p:dataTable var="category" value="#{categoryController.categoryList1}" id="categoryListTable" styleClass="tableByThird">
+								<p:column headerText="Category">
+							        <h:outputText value="#{category.categoryTitle}" />
+							    </p:column>							
+							</p:dataTable>
+						</h:panelGrid>
+					</h:form>
+				</p:scrollPanel>
+		    </p:layoutUnit>
+		    <p:layoutUnit position="east" resizable="true" size="100" minSize="40" maxSize="200">
+<!-- 		        *East* -->
+		    </p:layoutUnit>
+		    <p:layoutUnit position="south" resizable="true" size="100" minSize="40" maxSize="200">
+<!-- 		        *South* -->
+		    </p:layoutUnit>
+		</p:layout>
+	</h:body>
+</html>

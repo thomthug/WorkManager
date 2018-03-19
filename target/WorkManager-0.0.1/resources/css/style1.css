@@ -1,0 +1,112 @@
+/****** Global CSS ******/
+body {
+    background-color: gray;
+}
+
+h1 {
+    color: blue;
+    text-align: center;
+}
+
+p {
+    font-family: fantasy;
+    font-size: 10px;
+}
+
+/****** Form CSS ******/
+
+/***#myForm CSS***/
+
+#myForm\:name {
+	background-color: red;
+}
+
+
+
+#myForm\::b {
+	background-color: maroon;
+}
+
+#myForm\::c {
+	background-color: purple;
+}
+
+/****** Other CSS ******/
+.northBanner{
+	background-image: url("#{resource['images/tokuSatsuBanner.png']}");
+	width: 100%;
+	height: 100px;
+}
+
+.width500px{
+	width: 500px;
+}
+.width100%{
+	width: 100%;
+}
+.width75%{
+	width: 75%;
+}
+.width50%{
+	width: 50%;
+}
+.width25%{
+	width: 25%;
+}
+
+.titre,.modifBtn,.sousOeuvreBtn,.supprBtn{
+	width: 100%;
+}
+
+.editBtn , .othBtn, .delBtn{
+	/**background-image: url("#{resource['images/emblem.jpg']}");**/
+	/**background: white url('resource/images/emblem.jpg') no-repeat top;*/
+	/** background: white url('images/emblem.jpg') no-repeat top;*/
+	width: 35px;
+	height: 40px;
+}
+
+.panelByThird, tableByThird{
+	width:100%;
+}
+
+.navigationBtn{
+	width: 100%;
+}
+
+.logo{
+	width: 50%;
+}
+
+.detail{
+	width: 50%;
+}
+
+.defaultImage{
+	background-image: url("#{resource['images/emblem.jpg']}");
+	width: 70px;
+	height: 70px;
+	/*max-width: 70px;
+	max-height: 70em;*/
+	
+}
+
+#subVal {
+	background-color: red;
+}
+
+#a {
+	background-color: yellow;
+}
+
+#d{
+	background-color: maroon;
+	color: red;
+}
+
+#e{
+	background-color: purple;
+	color: blue;
+}
+
+

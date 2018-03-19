@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<h:outputStylesheet library="css" name="style1.css" />
+		<title>Add Info</title>
+	</h:head>
+	<h:body>
+<!-- 	<h:form id="nationalityForm" enctype="multipart/form-data"> -->
+	<f:metadata>
+		<f:viewParam name="productId" value="#{navigationBean.productId}" />
+	</f:metadata>
+		<p:layout style="min-width:600px;min-height:800px;">
+			<p:layoutUnit position="north" resizable="true" size="100" minSize="40" maxSize="200" styleClass="northBanner">
+<!-- 		        *North* -->
+<!-- 		        <p> -->
+<!-- 					You've been redirected to this bookmarkable page with button. -->
+<!-- 					ViewParameter you've passed is <strong>" -->
+<!-- 					#{navigationBean.productId}"</strong> -->
+<!-- 				</p> -->
+		    </p:layoutUnit>
+		    <p:layoutUnit position="west" resizable="true" size="200" minSize="40" maxSize="200">
+<!-- 		        *West* -->
+		        <p:button outcome="/index" value="Home"
+					icon="ui-icon-home" styleClass="navigationBtn">
+					<f:param name="productId" value="14" />
+				</p:button>
+<!-- 				<p:button outcome="pages/consultInfo" value="Consult Info" -->
+<!-- 					icon="ui-icon-triangle-1-n" styleClass="navigationBtn"> -->
+<!-- 					<f:param name="productId" value="14" /> -->
+<!-- 				</p:button> -->
+		    </p:layoutUnit>
+		    <p:layoutUnit position="center">
+<!-- 		        *Center* -->
+				<p:scrollPanel style="width:78%;height:555px">
+					<h:form id="nationalityForm" enctype="multipart/form-data">
+						<p:growl id="messages" showDetail="true" />
+						<h:panelGrid columns="2" cellpadding="10">	
+<!-- 						<f:facet name=""> -->
+<!-- 							<p:fileUpload fileUploadListener="#{nationalityController.handleFileUpload}" mode="advanced" dragDropSupport="false" -->
+<!-- 	          			 	update="messages" sizeLimit="999999999" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /> -->
+<!-- 						</f:facet> -->
+							<p:panel id="verticalNationalityPanel" header="Ajouter des Nationalités" toggleable="true" toggleOrientation="vertical" styleClass="width50%">
+        						<h:panelGrid columns="2" cellpadding="5">
+									<p:outputLabel value="TITRE:" />
+									<p:inputText value="#{nationalityController.nationality.nationalityTitle}" />
+								</h:panelGrid>
+								<p:fileUpload value="#{nationalityController.file}" mode="simple" skinSimple="true"/>
+								<p:commandButton id="saveNationalityBtn" value="Ajouter" 
+									action="#{nationalityController.saveNationality(nationalityController.nationality)}" 
+									 ajax="false"
+								update="messages nationalityListTable @form" icon="ui-icon-disk" onsucces="nationalityController.resetField()"/>
+							</p:panel>
+<!-- 							table  -->
+							<p:dataTable var="nationality" value="#{nationalityController.nationalityList1}" id="nationalityListTable" 
+							styleClass="width50%" scrollHeight="150px"
+							selectionMode="single" selection="#{nationalityController.selectedNationality}" rowKey="#{nationality.nationalityId}">
+								<f:facet name="header">
+						            Nationalités
+						        </f:facet>
+						        <p:ajax event="rowSelect" listener="#{nationalityController.onRowSelect}" update=":nationalityForm:messages"/>
+						        <p:ajax event="rowUnselect" listener="#{nationalityController.onRowUnselect}" update=":nationalityForm:messages"/>
+								<p:column headerText="Logo ">
+							        <p:graphicImage value="#{imageStreamerBean.nationalityLogo}" width="50px" height="30px" alt="logo"> 
+						            	<f:param name="nationalityId" value="#{nationality.nationalityId}"/>
+							        </p:graphicImage>
+							    </p:column>
+								<p:column headerText="Titre " selectRow="alert('test');">
+							        <h:outputText value="#{nationality.nationalityTitle}"/>
+							    </p:column>							
+							</p:dataTable>
+							
+							<p:contextMenu for="nationalityListTable">
+						        <p:menuitem value="Update" update="nationalityDetail" icon="ui-icon-arrowrefresh-1-w" oncomplete="PF('nationalityDialog').show()"/>
+						        <p:menuitem value="Delete" update="nationalityListTable" icon="ui-icon-close" actionListener="#{dtContextMenuView.deleteCar}"/>
+						    </p:contextMenu>
+							
+						</h:panelGrid>
+					</h:form>
+				</p:scrollPanel>
+		    </p:layoutUnit>
+		    <p:layoutUnit position="east" resizable="true" size="100" minSize="40" maxSize="200">
+<!-- 		        *East* -->
+		    </p:layoutUnit>
+		    <p:layoutUnit position="south" resizable="true" size="100" minSize="40" maxSize="200">
+<!-- 		        *South* -->
+		    </p:layoutUnit>
+		</p:layout>
+		
+		
+		<p:dialog header="Modifier la Nationalité" widgetVar="nationalityDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="nationalityDetail" style="text-align:center;">
+        <h:form id="nationalityDialogForm" enctype="multipart/form-data">
+<!--         <h:form id="nationalityDialogForm"> -->
+            <p:panelGrid  columns="2" rendered="#{not empty nationalityController.selectedNationality}" columnClasses="label,value">
+                <f:facet name="header">
+                    <p:graphicImage value="#{imageStreamerBean.nationalityLogo}" width="50px" height="30px" alt="logo"> 
+		            	<f:param name="nationalityId" value="#{nationalityController.selectedNationality.nationalityId}"/>
+			        </p:graphicImage> 
+<!-- 			        <h:inputHidden value="#{nationalityController.selectedNationality.nationalityLogo}" /> -->
+<!-- 					<h1>Braaaaa</h1> -->
+                </f:facet>
+                
+                <h:outputText value="Titre:" />
+                <h:inputText value="#{nationalityController.selectedNationality.nationalityTitle}" />
+ 				
+ 				<h:outputText value="Logo:" />
+<!--  				<p:fileUpload value="#{nationalityController.fileUp}" mode="simple" skinSimple="true"/> -->
+ 				
+                 <p:fileUpload fileUploadListener="#{nationalityController.handleFileUpload}" mode="advanced" dragDropSupport="false" value="#{nationalityController.fileUp}"
+          			 	 sizeLimit="999999999" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" auto="true"/>
+  				<f:facet name="footer">
+  					<h:inputHidden value="#{nationalityController.selectedNationality.nationalityId}" />
+  				    <p:commandButton id="updateNationalBtn" value="Modifier" update="@form nationalityForm" ajax="true"
+  				    action="#{nationalityController.updateNationality(nationalityController.selectedNationality)}" icon="ui-icon-arrowrefresh-1-w"/>
+                </f:facet>
+            </p:panelGrid>
+        </h:form>
+        </p:outputPanel>
+    	</p:dialog>
+		
+<!-- 	</h:form> -->
+	</h:body>
+</html>

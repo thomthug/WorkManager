@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    	<h:outputStylesheet library="css" name="style1.css" />
+        <title>Consult Info</title>
+    </h:head>
+    <h:body>
+		<f:metadata>
+<!-- 			<f:viewParam name="productId" value="#{navigationBean.productId}" /> -->
+		</f:metadata>
+		<p:layout style="min-width:600px;min-height:800px;">
+			<p:layoutUnit position="north" resizable="true" size="100" minSize="40" maxSize="200">
+<!-- 		        *North* -->
+		        <p>
+					You've been redirected to this bookmarkable page with button.
+					ViewParameter you've passed is <strong>"
+					#{navigationBean.productId}"</strong>
+				</p>
+		    </p:layoutUnit>
+		    <p:layoutUnit position="west" resizable="true" size="200" minSize="40" maxSize="200">
+<!-- 		        *West* -->
+		        <p:button outcome="/index" value="Home"
+					icon="ui-icon-home" styleClass="navigationBtn">
+					<f:param name="productId" value="14" />
+				</p:button>
+		        <p:button outcome="manageWorks" value="Manage Works"
+					icon="ui-icon-squaresmall-plus" styleClass="navigationBtn">
+					<f:param name="productId" value="14" />
+				</p:button>
+		    </p:layoutUnit>
+		    <p:layoutUnit position="center">
+<!-- 		        *Center* -->
+				<p:scrollPanel style="width:79%;height:555px">
+					<h:form id="subWorkForm">
+						<p:panel id="verticalWorkPanel" header="Ajouter une Oeuvre" toggleable="true" toggleOrientation="vertical" styleClass="width100%">
+       						<h:panelGrid columns="2" cellpadding="10">
+       						
+       							<p:outputLabel for="subWorkWork" value="OEUVRE :" />
+       							<p:selectOneMenu id="subWorkWork" value="#{subWorkController.subWork.work}" style="width:125px">
+						            <f:selectItem itemLabel="Select One" itemValue="" />
+						        	<f:selectItems value="#{workController.workList1}" var="work" itemLabel="#{work.workTitle}" itemValue="#{work}"/>
+						        </p:selectOneMenu>
+       						
+								<p:outputLabel value="TITRE :" />
+								<p:inputText value="#{subWorkController.subWork.subWorkTitle}"/>
+								<p:outputLabel value="DESCRIPTION :" />
+								<h:inputTextarea value="#{subWorkController.subWork.subWorkDescription}" cols="33" rows="6"/>
+								
+								<p:outputLabel for="subWorkDate" value="DATE :" />
+	        					<p:calendar id="subWorkDate" value="#{subWorkController.subWork.subWorkCreationDate}" showOn="button" />
+<!-- 							<p:outputLabel for="advanced" value="Nationalité :"  /> -->
+<!-- 					        <p:selectOneMenu id="advanced" value="#{subWorkController.subWork}" converter="themeConverter" panelStyle="width:180px" -->
+<!-- 					                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith"> -->
+<!-- 					            <f:selectItems value="#{subWorkController.subWork.}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" /> -->
+<!-- 					            <p:column style="width:10%"> -->
+<!-- 					                <h:outputText styleClass="ui-theme ui-theme-#{t.name}" /> -->
+<!-- 					            </p:column> -->
+<!-- 					            <p:column> -->
+<!-- 					                <h:outputText value="#{t.displayName}" /> -->
+<!-- 					            </p:column> -->
+<!-- 					        </p:selectOneMenu> -->
+
+							<p:outputLabel for="subWorkMedia" value="MEDIA :" />
+					        <p:selectOneMenu id="subWorkMedia" value="#{subWorkController.subWork.medium}" style="width:125px">
+					            <f:selectItem itemLabel="Select One" itemValue="" />
+					        	<f:selectItems value="#{mediumController.mediumList1}" var="medium" itemLabel="#{medium.mediumTitle}" itemValue="#{medium}"/>
+					        </p:selectOneMenu>
+					        
+					        <p:outputLabel for="subWorktag" value="TAG :" />
+					        <p:selectOneMenu id="subWorktag" value="#{subWorkController.subWork.subWorkTag}" style="width:125px">
+					            <f:selectItem itemLabel="Select One" itemValue="" />
+					            <f:selectItem itemLabel="Perso" itemValue="M" />
+					            <f:selectItem itemLabel="Autres" itemValue="O" />
+					        </p:selectOneMenu>
+								
+							</h:panelGrid>
+							<p:toolbar>
+								<f:facet name="left">
+									<p:commandButton id="saveSubWorkBtn" value="Ajouter" action="#{subWorkController.saveSubWork(subWorkController.subWork)}" icon="ui-icon-disk"/>
+<!-- 									<span class="ui-separator"> -->
+<!-- 						                <span class="ui-icon ui-icon-grip-dotted-vertical" /> -->
+<!-- 						            </span> -->
+								</f:facet>
+							</p:toolbar>
+						</p:panel>
+					
+<!-- 						<p:repeat value="#{subWorkController.workList1}" var="work"> -->
+<!-- 					:myTest1:testDetail (if dialog is in this form)-->
+<!-- 					        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail"> -->
+<!-- 					            <p:commandLink update="subWorkDetail" oncomplete="PF('subWorkDialog').show()"> -->
+<!-- 					                <f:setPropertyActionListener value="#{subWork}" target="#{subWorkController.work}" /> -->
+<!-- 					                <p:graphicImage value="resources/images/emblem.jpg" alt="image not set" height="70px" width="70px"/>  -->
+<!-- 					                <p:graphicImage library="images" name="emblem.jpg" height="40px" width="40px"/> -->
+<!-- 					            <p:graphicImage value="#{imageStreamerBean.image}" width="200px" height="200px">  -->
+<!-- 					            	<f:param name="pictureId" value="#{picture.pictureId}"/> -->
+<!-- 						        </p:graphicImage> -->
+<!-- 					            </p:commandLink> -->
+<!-- 					            <p:outputPanel> -->
+<!-- 					                <h:panelGrid columns="2" cellpadding="5"> -->
+<!-- 					                    <h:outputText value="Titre :" /> -->
+<!-- 					                    <h:outputText value="#{subWork.workTitle}" style="font-weight: bold"/> -->
+<!-- 					                    <h:outputText value="Date de Creation :" /> -->
+<!-- 					                    <h:outputText value="#{work.subWorkCreationDate}" style="font-weight: bold"/> -->
+<!-- 			                		</h:panelGrid> -->
+<!-- 			            		</p:outputPanel> -->
+<!-- 			        		</h:panelGrid> -->
+<!-- 			        		<hr /> -->
+<!-- 			    		</p:repeat> -->
+					</h:form>
+				</p:scrollPanel>
+		    </p:layoutUnit>
+		    <p:layoutUnit position="east" resizable="true" size="100" minSize="40" maxSize="200">
+<!-- 		        *East* -->
+		    </p:layoutUnit>
+		    <p:layoutUnit position="south" resizable="true" size="100" minSize="40" maxSize="200">
+<!-- 		        *South* -->
+		    </p:layoutUnit>
+		</p:layout>
+<!-- 		Dialog  -->
+		 <p:dialog header="Sub Work Info" widgetVar="subWorkDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+	        <p:outputPanel id="subWorkDetail" style="text-align:center;">
+	            <p:panelGrid  columns="2" rendered="#{not empty workController.work}" columnClasses="label,value">
+	                <f:facet name="header">
+	                    <p:graphicImage library="images" name="emblem.jpg" height="40px" width="40px"/> 
+	                </f:facet>
+	                <h:outputText value="Titre :" />
+                    <h:outputText value="#{work.workTitle}" style="font-weight: bold"/>
+<!--                     <h:outputText value="Date de Creation :" /> -->
+<!--                     <h:outputText value="#{subWork.subWorkCreationDate}" style="font-weight: bold"/> -->
+                    <h:outputText value="Description :" />
+                    <p:inputTextarea rows="10" cols="33" value="#{work.workDescription}" style="font-weight: bold" disable="true"/>
+	            </p:panelGrid>
+	        </p:outputPanel>
+	    </p:dialog>
+    </h:body>
+</html>
